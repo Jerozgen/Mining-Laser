@@ -1,0 +1,8 @@
+{
+  "default-namespace": "laser",
+  "language-level": 2,
+  "datapack-output": "$PROJECT_DIR$\\..\\out\\Mining Laser.zip",
+  "resources-output": "",
+  "export-comments": true,
+  "strict-text-components": false
+}
