@@ -1,0 +1,56 @@
+{
+    //Language Info
+    "language.name": "English",
+    
+    // Message Format
+    "message.format": "    ----- [%s] -----\n%s\n    -----------------------",
+    "message.title": "Mining Laser",
+
+    // Messages
+    "message.trigger": "    Use %s\n       to get the guide book.",
+    "message.changed_language": "   Language has been changed.",
+    "message.choosen_language": "   Language has been choosen.",
+    "message.choose_language": "       Choose your language:",
+    "message.choose_language.item_format": "       — %s",
+    "message.choose_language.help_translate_offset": "          %s",
+    "message.choose_language.help_translate": "Help translate",
+
+    // Guide Book
+    "guide_book.title": "Mining Laser",
+
+    "guide_book.contents.title": "    §4⚡ §0Mining Laser §4⚡",
+    "guide_book.contents.subtitle": "       guide book",
+    "guide_book.contents.creating": "2§7.................................§3Creating",
+    "guide_book.contents.activating": "3§7..............................§3Activating",
+    "guide_book.contents.modifiers": "4§7...............................§3Modifiers",
+    "guide_book.contents.beam": "5§7..........................................§3Beam",
+    "guide_book.contents.breaking": "6§7................................§3Breaking",
+    "guide_book.contents.tip": "     Click a section\n     to go there",
+
+    "guide_book.creating.title": "         Creating",
+    "guide_book.creating.schematic": "      Schematic of\n      §0Mining Laser§8:",
+    "guide_book.creating.schematic.observer.lore": "its output can be directed:\n- away from the %s\n- downwards\n- upwards", // %s = Iron Block
+    "guide_book.creating.schematic.blast_furnace.lore": "directed away from the %s", // %s = Hopper
+    "guide_book.creating.schematic.hopper.lore": "directed to the %s", // %s = Blast Furnace
+    "guide_book.creating.tip": "   Hover over icons\n    above for more.",
+
+    "guide_book.activating.title": "        Activating",
+    "guide_book.activating.text1": "   Activating a laser\n   requires§4 2§8 things:",
+    "guide_book.activating.text2": "- §9Blast Furnace§8 has fuel and a diamond pickaxe",
+    "guide_book.activating.text3": "- §9Redstone Lamp§8 lits",
+
+    "guide_book.modifiers.title": "         Modifiers",
+    "guide_book.modifiers.text": " You can put certain\n items to the §0Hopper§8\n for laser improving.",
+    "guide_book.modifiers.distance": "  +1 block §4distance",
+    "guide_book.modifiers.speed": "  +1 §4speed",
+    "guide_book.modifiers.+9": "  +9 if block was put",
+    "guide_book.modifiers.3x3": "  3x3§8 grid mining",
+    
+    "guide_book.beam.title": "           Beam",
+    "guide_book.beam.text1": "  A laser beam §4deals\n§4  damage§8 to entities.",
+    "guide_book.beam.text2": "  Items§8 and§9 XP orbs\n§8  caught in a beam\n§4  teleports§8 to the\n§0  Blast Furnace§8.",
+    
+    "guide_book.breaking.title": "         Breaking",
+    "guide_book.breaking.text1": "Breaking§8 blocks\n§8requires more§4 fuel\n§8and uses the pickaxe,\n§8taking its §4durability§8.",
+    "guide_book.breaking.text2": "Pickaxe §9enchantments\n(but Efficiency) works."
+}
