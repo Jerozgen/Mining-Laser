@@ -41,7 +41,8 @@
 
     "guide_book.modifiers.title": "         Modifiers",
     "guide_book.modifiers.text": " You can put certain\n items to the §0Hopper§8\n for laser improving.",
-    "guide_book.modifiers.distance": "  +1 block §4distance",
+    "guide_book.modifiers.distance": "  +2 block §4distance",
+    "guide_book.modifiers.+18": "  +18 if block was put",
     "guide_book.modifiers.speed": "  +1 §4speed",
     "guide_book.modifiers.+9": "  +9 if block was put",
     "guide_book.modifiers.3x3": "  3x3§8 grid mining",

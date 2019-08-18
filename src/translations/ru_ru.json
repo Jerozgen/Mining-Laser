@@ -30,7 +30,7 @@
     "guide_book.creating.title": "         Создание",
     "guide_book.creating.schematic": "      §0Схема лазера:",
     "guide_book.creating.schematic.observer.lore": "его выход может быть направлен:\n- от §fжелезного блока\n§7- вниз\n- вверх", // %s = Iron Block
-    "guide_book.creating.schematic.blast_furnace.lore": "направлен от §fворонки", // %s = Hopper
+    "guide_book.creating.schematic.blast_furnace.lore": "направлена от §fворонки", // %s = Hopper
     "guide_book.creating.schematic.hopper.lore": "направлена в §fплавильную печь", // %s = Blast Furnace
     "guide_book.creating.tip": " Наведите на значки,\nчтобы узнать больше.",
 
@@ -41,7 +41,8 @@
 
     "guide_book.modifiers.title": "     Модификаторы",
     "guide_book.modifiers.text": "Загрузив предметы\nв §0воронку§8, вы можете\nулучшить лазер.",
-    "guide_book.modifiers.distance": "  +1 к §4расстоянию",
+    "guide_book.modifiers.distance": "  +2 к §4расстоянию",
+    "guide_book.modifiers.+18": "  +18, если это блок",
     "guide_book.modifiers.speed": "  +1 к §4скорости",
     "guide_book.modifiers.+9": "  +9, если это блок",
     "guide_book.modifiers.3x3": "§8  разрушение §43x3",
