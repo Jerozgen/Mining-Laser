@@ -1,0 +1,157 @@
+@ on compile
+@ require laser:translations
+
+define objective temp
+define objective const
+define objective used.bfurnace used:blast_furnace
+define objective power
+define objective working
+define objective laser_id
+define objective remove_burn_time
+define objective mining_laser trigger "Mining Laser"
+define objective language trigger {"translate":"narrator.button.language"}
+define objective chosen_language
+define objective rejoin custom:leave_game
+
+global var DEFAULT_DISTANCE = 30
+global var BURN_TIME_FOR_BLOCK = 100
+global var TRANSLATIONS_URL = "https://github.com/Jerozgen/Mining-Laser/tree/master/src/translations"
+
+global var directions = ["north", "east", "south", "west"]
+global var all_directions = ["north", "east", "south", "west", "up", "down"]
+
+var opposite_direction = function(direction){
+    return directions[(directions.indexOf(direction) + 2) % 4]
+}
+
+define entity blast_furnace area_effect_cloud {
+    default nbt {
+        Duration:-1,
+        Age:-2147483648,
+        WaitTime:-2147483648
+    }
+}
+
+var message = function(tc){
+    return tellraw("@s",
+        {translate:"message.format",color:"dark_gray",with:[
+            {translate:"message.title",color:"white"}, tc
+        ]}
+    )
+}
+
+define function load {
+    @ tag load
+    
+    gamerule sendCommandFeedback false
+    
+    set 100 -> const = 100
+    set 20 -> const = 20
+    set 4 -> const = 4
+    set 2 -> const = 2
+    
+    team add no_collision
+    team modify no_collision collisionRule never
+}
+
+global var GUIDE_BOOK = [[
+        "\n\n",
+        {translate:"guide_book.contents.title"},
+        "\n",
+        {translate:"guide_book.contents.subtitle",color:"dark_gray"},
+        "\n\n\n",
+        {translate:"guide_book.contents.creating",color:"dark_gray",clickEvent:{action:"change_page",value:"2"}},
+        "\n",
+        {translate:"guide_book.contents.activating",color:"dark_gray",clickEvent:{action:"change_page",value:"3"}},
+        "\n",
+        {translate:"guide_book.contents.modifiers",color:"dark_gray",clickEvent:{action:"change_page",value:"4"}},
+        "\n",
+        {translate:"guide_book.contents.beam",color:"dark_gray",clickEvent:{action:"change_page",value:"5"}},
+        "\n",
+        {translate:"guide_book.contents.breaking",color:"dark_gray",clickEvent:{action:"change_page",value:"6"}},
+        "\n\n",
+        {translate:"guide_book.contents.tip",color:"dark_gray"}
+    ],
+    ["",
+        {translate:"guide_book.creating.title",color:"dark_aqua"},
+        {translate:"\n-------------------\n\n",color:"gray"},
+        {translate:"guide_book.creating.schematic",color:"dark_gray"},
+        "\n\n           ",
+        {translate:"\u2588",color:"gold",hoverEvent:{action:"show_text",value:{translate:"block.minecraft.redstone_lamp"}}},
+        {translate:"\u2588",color:"gray",hoverEvent:{action:"show_text",value:{translate:"block.minecraft.iron_block"}}},
+        {translate:"\u2593",color:"dark_gray",hoverEvent:{action:"show_text",value:[
+            {translate:"block.minecraft.observer"},
+            "\n",
+            {translate:"guide_book.creating.schematic.observer.lore",color:"gray","italic":false,with:[
+                    {translate:"block.minecraft.iron_block",color:"white"}
+            ]}
+        ]}},
+        "\n           ",
+        {translate:"\u2588",color:"dark_gray",hoverEvent:{action:"show_text",value:[
+            {translate:"block.minecraft.blast_furnace"},
+            "\n",
+            {translate:"guide_book.creating.schematic.blast_furnace.lore",color:"gray","italic":false,with:[
+                    {translate:"block.minecraft.hopper",color:"white"}
+            ]}
+        ]}},
+        {translate:"\u258a",color:"black",hoverEvent:{action:"show_text",value:[
+            {translate:"block.minecraft.hopper"},
+            "\n",
+            {translate:"guide_book.creating.schematic.hopper.lore",color:"gray","italic":false,with:[
+                    {translate:"block.minecraft.blast_furnace",color:"white"}
+            ]}
+        ]}},
+        "\n\n",
+        {translate:"guide_book.creating.tip",color:"dark_gray"}
+    ],
+    ["",
+        {translate:"guide_book.activating.title",color:"dark_aqua"},
+        {translate:"\n-------------------\n\n",color:"gray"},
+        {translate:"guide_book.activating.text1",color:"dark_gray"},
+        "\n\n",
+        {translate:"guide_book.activating.text2",color:"dark_gray"},
+        "\n",
+        {translate:"guide_book.activating.text3",color:"dark_gray"}
+    ],
+    ["",
+        {translate:"guide_book.modifiers.title",color:"dark_aqua"},
+        {translate:"\n-------------------\n",color:"gray"},
+        {translate:"guide_book.modifiers.text",color:"dark_gray"},
+        "\n\n",
+        {translate:"item.minecraft.diamond",color:"blue"},
+        {translate:" / ",color:"dark_gray"},
+        {translate:"item.minecraft.emerald",color:"blue"},
+        "\n",
+        {translate:"guide_book.modifiers.distance",color:"dark_gray"},
+        "\n",
+        {translate:"guide_book.modifiers.+18",color:"gray"},
+        "\n",
+        {translate:"item.minecraft.redstone",color:"blue"},
+        "\n",
+        {translate:"guide_book.modifiers.speed",color:"dark_gray"},
+        "\n",
+        {translate:"guide_book.modifiers.+9",color:"gray"},
+        "\n",
+        {translate:"item.minecraft.nether_star",color:"blue"},
+        "\n",
+        {translate:"guide_book.modifiers.3x3",color:"dark_red"},
+        "\n "
+    ],
+    ["",
+        {translate:"guide_book.beam.title",color:"dark_aqua"},
+        "",
+        {translate:"\n-------------------\n\n",color:"gray"},
+        {translate:"guide_book.beam.text1",color:"dark_gray"},
+        "\n\n",
+        {translate:"guide_book.beam.text2",color:"blue"}
+    ],
+    [
+        "",{translate:"guide_book.breaking.title",color:"dark_aqua"},
+        "\n",
+        {translate:"-------------------",color:"gray"},
+        "\n\n",
+        {translate:"guide_book.breaking.text1",color:"blue"},
+        "\n\n",
+        {translate:"guide_book.breaking.text2",color:"dark_gray"}
+    ]
+]

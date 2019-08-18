@@ -1,0 +1,92 @@
+@ on compile
+
+
+var languages = []
+eval languages.add(JSON.parse(File.in.read("/translations/en_us.json")))
+for (file in File.in.read("/translations")){
+    do if(file != "en_us.json")
+        eval languages.add(JSON.parse(File.in.read("/translations/" + file)))
+}
+
+
+# Replaces values of "translate" keys in a text component to values from a dictionary
+var parse = function(tcomponent, dictionary) {   
+    do if(isInstance(tcomponent, "dictionary")){ 
+        return tcomponent.map(function(key, value) {
+            do if(key == "translate"){
+                do if(dictionary[value] != null) {
+                    return dictionary[value]
+                } else do if(languages[0][value] != null) {
+                    return languages[0][value]
+                } else {
+                    return value
+                }
+            }
+            do if(key == "with")        { return parse(value, dictionary) }
+            do if(key == "hoverEvent")  { return parse(value, dictionary) }
+            do if(key == "value")       { return parse(value, dictionary) }
+            return value
+        })
+    }
+    do if(isInstance(tcomponent, "list")){
+        return tcomponent.map(function(elem) {
+            return parse(elem, dictionary)
+        })
+    }
+    do if(isInstance(tcomponent, "string")){
+        return tcomponent
+    }
+}
+
+
+var command = function(command, tcomponent) {
+    return function{
+        var i = 0
+        for (language in languages){
+            eval i += 1
+            if score @s chosen_language matches ${i*-1}
+                /${command.replace("%tc%", (string) new text_component(parse(tcomponent, language)))}
+        }
+    }
+}
+
+
+# Prints a parsed text component for a selector
+var tellraw = function(selector, tcomponent) {
+    return command("tellraw " + (entity) selector + " %tc%", tcomponent)
+}
+
+
+# Replaces an item in a slot to the book with parsed text and name
+var givebook = function(name, text) {
+    return function{
+        var i = 0
+        for (language in languages){
+            var name_ = (string) new text_component(parse(name, language))
+            var text_ = []
+            for (t in text) {
+                eval text_.add((string) new text_component(parse(t, language)))
+            }
+            eval i += 1
+            if score @s chosen_language matches ${i*-1}
+                /${"give @s written_book" + new nbt({title:"Mining Laser",author:"Jerozgen",display:{Name:name_},pages:text_})}
+        }
+    }
+}
+
+var updatebook = function(_item, name, text) {
+    return function{
+        var i = 0
+        for (language in languages){
+            eval i += 1
+            if score @s chosen_language matches ${i*-1} function {
+                do if (text != null) {
+                    var text_ = [(string) new text_component(parse(text, language))]
+                    /${"execute as @a run data modify entity @s Inventory[].tag" + _item.getMatchingNBT() + ".pages set value " + new nbt(text_)}
+                }
+                var name_ = (string) new text_component(parse(name, language))
+                /${"execute as @a run data modify entity @s Inventory[].tag" + _item.getMatchingNBT() + ".display set value " + new nbt({Name:name_})}
+            }
+        }
+    }
+}
